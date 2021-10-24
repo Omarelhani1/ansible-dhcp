@@ -1,0 +1,17 @@
+router1: 192.168.100.1
+router2: 192.168.200.1
+net1: 192.168.100.0
+net2: 192.168.200.0
+mascara: 255.255.255.0
+ruta_servidor1: 192.168.100.0/24
+ruta_servidor2: 192.168.200.0/24
+interfaz_salida: enp0s3
+
+# DHCP
+interfaces: enp0s4 enp0s5
+rango1: 192.168.100.2 192.168.100.254
+rango2: 192.168.200.2 192.168.200.254
+tiempo1: 30
+tiempo2: 3600
+dns: 1.1.1.1, 1.0.0.1
+
