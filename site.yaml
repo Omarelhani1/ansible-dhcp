@@ -1,0 +1,42 @@
+- hosts: router
+  become: true
+  tasks:
+  - name: Activa bit de forward
+    sysctl:
+      name: net.ipv4.ip_forward
+      value: '1'
+      sysctl_set: yes
+
+  - name: Instalando paquetes necesarios
+     apt:
+       name:
+        - isc-dhcp-server
+        - iptables
+
+  - name: Cambiar configuración de red
+      template:
+        src: etc/network/interfaces
+        dest: /etc/network/interfaces
+        owner: root
+        group: root
+        mode: 0644
+      notify: reboot
+
+  - name: servidor dhcp
+      template:
+        src: etc/default/isc-dhcp-server
+        dest: /etc/default/isc-dhcp-server
+        owner: root
+        group: root
+        mode: 0644
+      template:
+        src: etc/dhcp/dhcpd.conf
+        dest: /etc/dhcp/dhcpd.conf
+        owner: root
+        group: root
+        mode: 0644
+      notify: reboot
+
+  handlers:
+      - name: reboot
+        reboot:
